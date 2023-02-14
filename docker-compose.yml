@@ -1,12 +1,21 @@
 version: '3.4'
 
 services:
-  tf-cert:
-    image: tf-cert
+  tf-cert-only-tf:
+    image: tf-cert-only-tf
     build:
       context: .
       dockerfile: ./Dockerfile
+      args:
+        version: 2.11.0-gpu
     ports:
       - 8888:8888
     volumes:
       - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -1,1 +1,5 @@
 .ipynb_checkpoints
+tfbook
+*.zip
+*.tar.gz
+ch03/horse-or-human/

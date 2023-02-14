@@ -1,13 +1,15 @@
-FROM ubuntu:22.04
+ARG version
+FROM tensorflow/tensorflow:$version
 
-ARG CONDA_INSTALL_FILE=Anaconda3-2022.10-Linux-x86_64.sh
-ARG CONDA_DIR=/opt/conda
-RUN apt update && apt install -y htop vim curl
-RUN curl https://repo.anaconda.com/archive/$CONDA_INSTALL_FILE --output $CONDA_INSTALL_FILE
-RUN bash $CONDA_INSTALL_FILE -b -p $CONDA_DIR
-RUN rm $CONDA_INSTALL_FILE
-ENV PATH=${CONDA_DIR}:${CONDA_DIR}/bin:$PATH
-RUN apt install -y build-essential
-RUN pip install jupyter jupyterlab tensorflow
+RUN apt update && apt install -y htop vim curl build-essential
+
+RUN pip install jupyter jupyterlab pillow scipy
+
+RUN mkdir -p /root/.jupyter
+
+#password 123456
+COPY jupyter_notebook_config.json /root/.jupyter
+
 WORKDIR /app
+
 CMD ["jupyter", "lab", "--allow-root", "--ip", "0.0.0.0"]

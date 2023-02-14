@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  tf-cert:
+    image: tf-cert
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        version: 2.11.0
+    ports:
+      - 8888:8888
+    volumes:
+      - .:/app
