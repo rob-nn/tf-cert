@@ -3,3 +3,5 @@ tfbook
 *.zip
 *.tar.gz
 ch03/horse-or-human/
+.DS_Store
+dogs-cats
